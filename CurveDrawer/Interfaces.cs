@@ -9,7 +9,10 @@ namespace CurveDrawer
     enum DOMAIN_TYPE
     {
         DOMAIN_POS_RAY = 1,
-        DOMAIN_NEG_RAY
+        DOMAIN_NEG_RAY,
+        INFINITY,
+        SEGMENT
+
     }
 
     struct DOMAIN
