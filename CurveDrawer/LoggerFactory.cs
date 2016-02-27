@@ -6,8 +6,30 @@ using System.Threading.Tasks;
 
 namespace CurveDrawer
 {
+    class InvalidLogger : ILogger
+    {
+        public InvalidLogger()
+        {
+
+        }
+
+        public int Progress
+        {
+            get { return 0; }
+            set { }
+        }
+
+        public string Message
+        {
+            get { return ""; }
+            set { }
+        }
+    }
     class LoggerFactory
     {
-        ILogger CreateLogger();
+        ILogger CreateLogger()
+        {
+            return new InvalidLogger();
+        }
     }
 }

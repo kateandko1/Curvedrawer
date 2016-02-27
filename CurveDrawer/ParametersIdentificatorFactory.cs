@@ -8,12 +8,18 @@ namespace CurveDrawer
 {
     class ParametersIdentificatorFactory
     {
+        public ParametersIdentificatorFactory()
+        {
+
+        }
+
         public IParametersIdentificator CreateParametersIdentificator(string Type)
         {
             if (Type == "MSM")
             {
                 return new MsmParametersIdentificator();
             }
+            return new InvalidParametersIdentificator();
         }
     }
 }

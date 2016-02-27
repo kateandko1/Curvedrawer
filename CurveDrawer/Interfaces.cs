@@ -26,9 +26,10 @@ namespace CurveDrawer
         double FuncVal(double x);
 
         double[] Params { get; set;}
-        int nparams { get; }
+        int nparams { get; set; }
 
-        string Name { get; }
+        string Name { get; set; }
+        string Type { get; }
         DOMAIN Domain { get; }
     }
     
