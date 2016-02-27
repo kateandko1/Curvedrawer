@@ -61,7 +61,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="CurveFactory.cs" />
     <Compile Include="FunctionalFactory.cs" />
     <Compile Include="Interfaces.cs" />
@@ -73,6 +72,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MsmParametersIdentificator.cs" />
+    <Compile Include="ParameterizedCurves\PolynomFunctions.cs" />
     <Compile Include="ParametersIdentificatorFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -9,7 +9,10 @@ namespace CurveDrawer
     enum DOMAIN_TYPE
     {
         DOMAIN_POS_RAY = 1,
-        DOMAIN_NEG_RAY
+        DOMAIN_NEG_RAY,
+        INFINITY,
+        SEGMENT
+
     }
 
     struct DOMAIN
@@ -26,9 +29,9 @@ namespace CurveDrawer
         double FuncVal(double x);
 
         double[] Params { get; set;}
-        int nparams { get; }
+        int nparams { get; set; }
 
-        string Name { get; }
+        string Name { get; set; }
         DOMAIN Domain { get; }
     }
     
