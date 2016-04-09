@@ -24,51 +24,50 @@ namespace CurveDrawer
     /// </summary>
     public partial class MainWindow : Window
     {
-        CurveFactory curve_factory;
-        List<ICurve> curves;
-        ChartArea chart_area;
-        Legend legend;
-        const int npoints = 1000;
-        int nseries = 0;
+        CurveFactory m_curve_factory ;
+        List<ICurve> m_curves        ;
+        ChartArea    m_chart_area    ;
+        Legend       m_legend        ;
+        const int    m_npoints = 1000;
+        int          m_nseries = 0   ;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            m_curve_factory = new CurveFactory();
+            m_chart_area    = new ChartArea   ();
+            m_legend        = new Legend      ();
+            m_chart_area.Name = "ChartArea";
+            chart.ChartAreas.Add(m_chart_area);
+            chart.Legends   .Add(m_legend    );
+            m_curves = new List<ICurve>();
+        }
 
         private void  DrawCurve(ICurve curve)
         {
             Series series = new Series
             {
-                Name = "Series" + nseries,
+                Name = "Series" + m_nseries       ,
                 Color = System.Drawing.Color.Green,
-                IsVisibleInLegend = false,
-                IsXValueIndexed = true,
-                ChartType = SeriesChartType.Line
+                IsVisibleInLegend = false         ,
+                IsXValueIndexed   = true          ,
+                ChartType = SeriesChartType.Line  ,
             };
 
-            nseries++;
+            m_nseries++;
             chart.Series.Add(series);
 
-            for (int i = 0; i < npoints; i++)
+            for (int i = 0; i < m_npoints; ++i)
             {
                 series.Points.AddXY(i, curve.FuncVal(i));
             }
             chart.Invalidate();
         }
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            curve_factory = new CurveFactory();
-            chart_area = new ChartArea();
-            legend = new Legend();
-            chart_area.Name = "ChartArea";
-            chart.ChartAreas.Add(chart_area);
-            chart.Legends.Add(legend);
-            curves = new List<ICurve>(); 
-
-        }
-
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            ICurve curve = curve_factory.CreateCurve("TEST");
-            curves.Add(curve);
+            ICurve curve = m_curve_factory.CreateCurve("TEST");
+            m_curves.Add(curve);
             DrawCurve(curve);
         }
 
@@ -83,10 +82,10 @@ namespace CurveDrawer
 
             saveFileDialog.ShowDialog();
             if ((myStream = new StreamWriter(saveFileDialog.OpenFile())) != null)
-            {     
-                for (int i = 0; i < curves.Count(); i++)
+            {
+                for (int i = 0; i < m_curves.Count(); ++i)
                 {
-                    myStream.WriteLine(curves[i].Serialize());
+                    myStream.WriteLine(m_curves[i].Serialize());
                 }
                 myStream.Close();
             }
@@ -103,12 +102,12 @@ namespace CurveDrawer
             openFileDialog.ShowDialog();
             if ((myStream = new StreamReader(openFileDialog.OpenFile())) != null)
             {
-                curves.Clear();
+                m_curves.Clear();
                 chart.Series.Clear();
                 while (!myStream.EndOfStream)
                 {
-                    ICurve curve = curve_factory.DeserializeFromString(myStream.ReadLine());
-                    curves.Add(curve);
+                    ICurve curve = m_curve_factory.DeserializeFromString(myStream.ReadLine());
+                    m_curves.Add(curve);
                     DrawCurve(curve);
                 }
                 myStream.Close();

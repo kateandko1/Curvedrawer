@@ -8,31 +8,22 @@ namespace CurveDrawer
 {
     class InvalidParametersIdentificator : IParametersIdentificator
     {
-        public InvalidParametersIdentificator()
-        {
+        public InvalidParametersIdentificator() { }
 
-        }
-
-        public void ProcessCurve(ICurve Curve, Point[] Points, IFunctional Functional, ILogger Logger)
-        {
-
-        }
+        public void ProcessCurve(ICurve Curve, Point[] Points, IFunctional Functional, ILogger Logger) { }
     }
 
     class MsmParametersIdentificator : IParametersIdentificator
     {
-        int OnethreadThresholdForPhase1;
-        int OnethreadThresholdForPhase2;
-
         public MsmParametersIdentificator()
         {
-            OnethreadThresholdForPhase1 = 500;
-            OnethreadThresholdForPhase2 = 200;
+            m_OnethreadThresholdForPhase1 = 500;
+            m_OnethreadThresholdForPhase2 = 200;
         }
 
-        public void ProcessCurve(ICurve Curve, Point[] Points, IFunctional Functional, ILogger Logger)
-        {
+        public void ProcessCurve(ICurve Curve, Point[] Points, IFunctional Functional, ILogger Logger) { }
 
-        }
+        int m_OnethreadThresholdForPhase1;
+        int m_OnethreadThresholdForPhase2;
     }
 }

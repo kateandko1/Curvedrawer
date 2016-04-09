@@ -9,18 +9,16 @@ namespace CurveDrawer
     enum DOMAIN_TYPE
     {
         DOMAIN_POS_RAY = 1,
-        DOMAIN_NEG_RAY,
-        INFINITY,
-        SEGMENT
-
+        DOMAIN_NEG_RAY    ,
+        INFINITY          ,
+        SEGMENT           ,
     }
 
     struct DOMAIN
     {
-        string Text;
-        double x1;
-        double x2;
-        DOMAIN_TYPE Type;
+        string      Text  ;
+        double      x1, x2;
+        DOMAIN_TYPE Type  ;
     }
 
     interface ICurve
@@ -28,11 +26,11 @@ namespace CurveDrawer
         string Serialize();
         double FuncVal(double x);
 
-        double[] Params { get; set;}
-        int nparams { get; set; }
+        double[] Params  { get; set; }
+        int      nparams { get; set; }
+        string   Name    { get; set; }
 
-        string Name { get; set; }
-        string Type { get; }
+//      string Type   { get; }
         DOMAIN Domain { get; }
     }
     
@@ -46,8 +44,8 @@ namespace CurveDrawer
 
     interface ILogger
     {
-        int Progress { get; set; }
-        string Message {get; set;}
+        int    Progress { get; set; }
+        string Message  { get; set; }
     }
 
     interface IParametersIdentificator
@@ -55,16 +53,11 @@ namespace CurveDrawer
         void ProcessCurve(ICurve Curve, Point[] Points, IFunctional Functional, ILogger Logger);
     }
 
-    struct Point
-    {
-        double x;
-        double y;
-    }
+    struct Point { double x, y; }
 
     interface IFunctional
     {
         Point[] Points { get; set; }
-        double Distance(ICurve Curve);
+        double  Distance(ICurve Curve);
     }
-
 }

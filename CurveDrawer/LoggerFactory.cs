@@ -8,28 +8,23 @@ namespace CurveDrawer
 {
     class InvalidLogger : ILogger
     {
-        public InvalidLogger()
-        {
-
-        }
+        public InvalidLogger() { }
 
         public int Progress
         {
             get { return 0; }
-            set { }
+            set {           }
         }
 
         public string Message
         {
             get { return ""; }
-            set { }
+            set {            }
         }
     }
+
     class LoggerFactory
     {
-        ILogger CreateLogger()
-        {
-            return new InvalidLogger();
-        }
+        ILogger CreateLogger() { return new InvalidLogger(); }
     }
 }

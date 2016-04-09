@@ -8,82 +8,68 @@ namespace CurveDrawer.ParameterizedCurves
 {
     class PolynomFunctions : ICurve
     {
-        double[] _params;
-        int _nparams;
-        string _name;
-        DOMAIN _domain;
+        double[] m_params ;
+        int      m_nparams;
+        string   m_name   ;
+        DOMAIN   m_domain ;
+
         public double[] Params
         {
             set
             {
-                if (value.Length == 2)
-                {
-                    _params = value;
-                }
+                if (value.Length == 2) { m_params = value; }
             }
-            get
-            {
-                return _params;
-            }
+
+            get { return m_params; }
         }
+
         public double FuncVal(double x)
         {
             double functionValue = 0;
             double temp_value;
-            for (int i = 0; i < _nparams; i++)
+
+            for (int i = 0; i < m_nparams; ++i)
             {
-                temp_value = _params[i];
-                for (int j = 0; j < _nparams - (i + 1);i++ )
+                temp_value = m_params[i];
+                for (int j = 0; j < m_nparams - (i + 1); ++i)
                 {
                     temp_value *= x;
                 }
                 functionValue += temp_value;
             }
+
             return functionValue;
         }
        
         public int nparams
         {
-            get
-            {
-                return _nparams;
-            }
-            set
-            {
-                _nparams = value;
-            }
+            get { return m_nparams ; }
+            set { m_nparams = value; }
         }
+
        public string Serialize()
         {
             string OutStr;
+            OutStr = m_name    + " ";
+            OutStr+= m_nparams + " ";
 
-            OutStr = _name+" ";
-
-            OutStr += _nparams + " ";
-            for (int i = 0; i < _nparams;i++ )
+            for (int i = 0; i < m_nparams; ++i)
             {
-                OutStr += _params[i] + " ";
+                OutStr += m_params[i] + " ";
             }
 
             return OutStr;
         }
+
         public string Name
         {
-            get
-            {
-                return _name;
-            }
-            set
-            {
-                _name = value;
-            }
+            get { return m_name ; }
+            set { m_name = value; }
         }
+
         public DOMAIN Domain
         {
-            get
-            {
-                return _domain;
-            }
+            get { return m_domain; }
         }
     }
 }

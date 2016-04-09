@@ -8,27 +8,19 @@ namespace CurveDrawer
 {
     class InvalidFunctional : IFunctional
     {
-        public InvalidFunctional()
-        {
+        public InvalidFunctional() { }
 
-        }
-
-        public double Distance(ICurve curve)
-        {
-            return -1.0;
-        }
+        public double Distance(ICurve curve) { return -1.0; }
 
         public Point[] Points
         {
             get { return new Point[0]; }
-            set { }
+            set {                      }
         }
     }
+
     class FunctionalFactory
     {
-        IFunctional CreateFunctional()
-        {
-            return new InvalidFunctional();
-        }
+        IFunctional CreateFunctional() { return new InvalidFunctional(); }
     }
 }
