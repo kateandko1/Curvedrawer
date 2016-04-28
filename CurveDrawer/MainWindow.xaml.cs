@@ -31,6 +31,11 @@ namespace CurveDrawer
         const int npoints = 1000;
         int nseries = 0;
 
+        public void CreateAndDraw(string name)
+        {
+            System.Windows.Forms.MessageBox.Show(name);
+        }   
+
         private void  DrawCurve(ICurve curve)
         {
             Series series = new Series
@@ -67,9 +72,11 @@ namespace CurveDrawer
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
-            ICurve curve = curve_factory.CreateCurve("TEST");
-            curves.Add(curve);
-            DrawCurve(curve);
+            //ICurve curve = curve_factory.CreateCurve("TEST");
+            //curves.Add(curve);
+            //DrawCurve(curve);
+            CurveSettingsWindow csw = new CurveSettingsWindow(this);
+            csw.Show();
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)

@@ -12,6 +12,12 @@ namespace CurveDrawer.ParameterizedCurves
         int _nparams;
         string _name;
         DOMAIN _domain;
+        
+        public string Type
+        {
+            get { return "Polynomic"; }
+        }
+
         public double[] Params
         {
             set
@@ -57,7 +63,7 @@ namespace CurveDrawer.ParameterizedCurves
         {
             string OutStr;
 
-            OutStr = _name+" ";
+            OutStr = _name + " " + Type + " ";
 
             OutStr += _nparams + " ";
             for (int i = 0; i < _nparams;i++ )
