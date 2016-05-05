@@ -31,9 +31,9 @@ namespace CurveDrawer
         const int npoints = 1000;
         int nseries = 0;
 
-        public void CreateAndDraw(string name)
+        public void GetCurveParams(string CurveName, string CurveType, string[] ParamsNames, double[] ParameterValues)
         {
-            System.Windows.Forms.MessageBox.Show(name);
+            System.Windows.Forms.MessageBox.Show("Parameters sucssesfully sended!");
         }   
 
         private void  DrawCurve(ICurve curve)
