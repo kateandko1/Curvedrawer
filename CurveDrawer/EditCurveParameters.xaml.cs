@@ -13,39 +13,51 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Collections;
 using System.Collections.ObjectModel;
-//using System.Windows.Forms;
 
 namespace CurveDrawer
 {
     /// <summary>
-    /// Логика взаимодействия для CurveSettingsWindow.xaml
-    /// 
+    /// Логика взаимодействия для EditCurveParameters.xaml
     /// </summary>
-    ///
-    public class CurveParameter
-    {
-        public string Parameter_Name { get; set; }
-        public double Parameter_Value  { get; set; }
-    }
-    
-    public partial class CurveSettingsWindow : Window
+    /// 
+
+
+
+
+    public partial class EditCurveParameters : Window
     {
         const string Polynom = "Polynomic";
         const string Garmonic = "Garmonic";
         string retType;
-
+        string[] ParameterNames;
+        double[] ParameterValue;
+        string CurveName;
+        string CurveType;
         //private ObservableCollection<CurveParameter> params_list = new ObservableCollection<CurveParameter>();
         MainWindow mwnd;
-        List < CurveParameter > params_list = new List < CurveParameter >();
-        public CurveSettingsWindow(MainWindow wnd)
+        List<CurveParameter> params_list = new List<CurveParameter>();
+
+        public EditCurveParameters(MainWindow wnd,
+            string[] parameterNames, double[] parameterValue,
+            string curveName, string curveType
+            )
         {
             InitializeComponent();
             mwnd = wnd;
             DataGridView.CanUserAddRows = false;
             DataGridView.CanUserSortColumns = false;
             retType = Polynom;
-            AddItemsInTable();
             
+            ParameterNames = parameterNames;
+            ParameterValue = parameterValue;
+            CurveName = curveName;
+            CurveType = curveType;
+            TextBox3.IsReadOnly = true;
+            TextBox3.Text = CurveType;
+            TextBox2.IsReadOnly = true;
+            TextBox2.Text = (ParameterValue.Length - 1).ToString();
+            TextBox1.Text = CurveName;
+            AddItemsInTable();
         }
         private void AddItemsInTable()
         {
@@ -67,53 +79,18 @@ namespace CurveDrawer
             }
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //curve_type = ComboBox1.SelectedItemProperty.ToString();
-            try
-            {
-                string st = ComboBox1.SelectedIndex.ToString();
-                if (ComboBox1.SelectedIndex.ToString().Equals("0"))
-                {
-                    TextBox2.IsReadOnly = false;
-                    TextBox2.Text = "0";
-                    retType = Polynom;
-                }
-                if (ComboBox1.SelectedIndex.ToString().Equals("1"))
-                {
-                    TextBox2.IsReadOnly = true;
-                    TextBox2.Text = "3";
-                    retType = Garmonic;
-                }
-            }
-            catch
-            {
 
-            }
-        }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
             AddItemsInTable();
-         //   }       
-        }
-
-        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void TextBox1_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string[] ParameterNames;
             double[] ParameterValue;
-            int count = Convert.ToInt32(TextBox2.Text.ToString())+1;
+            int count = Convert.ToInt32(TextBox2.Text.ToString()) + 1;
             ParameterNames = new string[count];
             ParameterValue = new double[count];
             DataGridView.UnselectAll();
@@ -127,8 +104,12 @@ namespace CurveDrawer
                 ParameterValue[i] = param.Parameter_Value;
             }
             string st = TextBox1.Text.ToString();
-            mwnd.GetCurveParams(TextBox1.Text.ToString(), retType, ParameterNames, ParameterValue);
+            mwnd.GetCurveEditParams(TextBox1.Text.ToString(), retType,
+                ParameterNames, ParameterValue);
             Close();
         }
     }
+
+
 }
+

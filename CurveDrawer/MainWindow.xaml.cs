@@ -33,8 +33,12 @@ namespace CurveDrawer
 
         public void GetCurveParams(string CurveName, string CurveType, string[] ParamsNames, double[] ParameterValues)
         {
-            System.Windows.Forms.MessageBox.Show("Parameters sucssesfully sended!");
-        }   
+            System.Windows.Forms.MessageBox.Show("Parameters sucssesfully created!");
+        }
+        public void GetCurveEditParams(string CurveName, string CurveType, string[] ParamsNames, double[] ParameterValues)
+        {
+            System.Windows.Forms.MessageBox.Show("Parameters sucssesfully edited!");
+        }  
 
         private void  DrawCurve(ICurve curve)
         {
@@ -70,12 +74,19 @@ namespace CurveDrawer
 
         }
 
-        private void newButton_Click(object sender, RoutedEventArgs e)
+        private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             //ICurve curve = curve_factory.CreateCurve("TEST");
             //curves.Add(curve);
             //DrawCurve(curve);
-            CurveSettingsWindow csw = new CurveSettingsWindow(this);
+            //test data
+            string Polinom = "Polynomic";
+            string name = "Curve1";
+            double[] params_val = { 0.0, 1.0 };
+            string[] params_name = { "a0","a1" };
+            //end
+            EditCurveParameters csw = new EditCurveParameters(this, params_name,
+                params_val, name, Polinom);
             csw.Show();
         }
 
@@ -120,6 +131,14 @@ namespace CurveDrawer
                 }
                 myStream.Close();
             }
+        }
+        private void newButton_Click(object sender, RoutedEventArgs e)
+        {
+            //ICurve curve = curve_factory.CreateCurve("TEST");
+            //curves.Add(curve);
+            //DrawCurve(curve);
+            CurveSettingsWindow csw = new CurveSettingsWindow(this);
+            csw.Show();
         }
     }
 }
