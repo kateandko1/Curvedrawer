@@ -18,6 +18,12 @@ namespace CurveDrawer
 
         }
 
+        public string[] ParamsNames
+        {
+            set { }
+            get { return null; }
+        }
+
         public double[] Params
         {
             get { return _params; }
@@ -60,6 +66,12 @@ namespace CurveDrawer
             set { }
         }
 
+        public string[] ParamsNames
+        {
+            set { }
+            get { return null; }
+        }
+
         public int nparams
         {
             get { return 1; }
@@ -92,6 +104,8 @@ namespace CurveDrawer
         {
             if (Type == "TEST")
                 return new TestCurve();
+            else if (Type == "Polynomic")
+                return new ParameterizedCurves.PolynomFunctions();
             else
                 return new InvalidCurve();
         }
@@ -100,7 +114,30 @@ namespace CurveDrawer
         {
             if (Str == "TEST_SERIALIZED")
                 return new TestCurve();
-            return new InvalidCurve();
+            else
+            {
+                string[] data = Str.Split(' ');
+                string curveType = data[0];
+                if (curveType == "Polynomic")
+                {
+                    ICurve curve =  new ParameterizedCurves.PolynomFunctions();
+                    curve.Name = data[1];
+                    int nparams = Int32.Parse(data[2]);
+                    curve.nparams = nparams;
+                    string[] paramsNames = new string[nparams];
+                    double[] paramsVals = new double[nparams]; 
+                    for (int i = 0; i < nparams; i++)
+                    {
+                        string[] param = data[3 + i].Split(':');
+                        paramsNames[i] = param[0];
+                        paramsVals[i] = double.Parse(param[1]);
+                    }
+                    curve.Params = paramsVals;
+                    curve.ParamsNames = paramsNames;
+                    return curve;
+                }
+                return new InvalidCurve();
+            }
         }
     }
 }

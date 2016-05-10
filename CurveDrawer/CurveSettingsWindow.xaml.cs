@@ -127,7 +127,7 @@ namespace CurveDrawer
                 ParameterValue[i] = param.Parameter_Value;
             }
             string st = TextBox1.Text.ToString();
-            mwnd.GetCurveParams(TextBox1.Text.ToString(), retType, ParameterNames, ParameterValue);
+            mwnd.CreateCurveFromParams(TextBox1.Text.ToString(), retType, ParameterNames, ParameterValue, list.Count);
             Close();
         }
     }

@@ -26,16 +26,27 @@ namespace CurveDrawer
     {
         CurveFactory curve_factory;
         List<ICurve> curves;
+        List<string> curves_names;
         ChartArea chart_area;
         Legend legend;
         const int npoints = 1000;
         int nseries = 0;
 
-        public void GetCurveParams(string CurveName, string CurveType, string[] ParamsNames, double[] ParameterValues)
+        public void CreateCurveFromParams(string CurveName, string CurveType, string[] ParamsNames, double[] ParameterValues, int NumberOfParams)
         {
-            System.Windows.Forms.MessageBox.Show("Parameters sucssesfully created!");
+            ICurve curve = curve_factory.CreateCurve(CurveType);
+            curve.Name = CurveName;
+            curve.nparams = NumberOfParams;
+            curve.Params = ParameterValues;
+            curve.ParamsNames = ParamsNames;
+            curves.Add(curve);
+            curves_names.Add(CurveName);
+            curveNameLabel.Content = CurveType + ": " + CurveName;
+            DrawCurve(curve);
+            //curve.
+            //System.Windows.Forms.MessageBox.Show("Parameters sucssesfully created!");
         }
-        public void GetCurveEditParams(string CurveName, string CurveType, string[] ParamsNames, double[] ParameterValues)
+        public void SetCurveParams(string CurveName, string CurveType, string[] ParamsNames, double[] ParameterValues)
         {
             System.Windows.Forms.MessageBox.Show("Parameters sucssesfully edited!");
         }  
@@ -70,8 +81,8 @@ namespace CurveDrawer
             chart_area.Name = "ChartArea";
             chart.ChartAreas.Add(chart_area);
             chart.Legends.Add(legend);
-            curves = new List<ICurve>(); 
-
+            curves = new List<ICurve>();
+            curves_names = new List<string>();
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)

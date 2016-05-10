@@ -28,7 +28,8 @@ namespace CurveDrawer
         string Serialize();
         double FuncVal(double x);
 
-        double[] Params { get; set;}
+        double[] Params { get; set; }
+        string[] ParamsNames { get; set; }
         int nparams { get; set; }
 
         string Name { get; set; }

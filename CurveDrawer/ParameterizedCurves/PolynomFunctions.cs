@@ -9,6 +9,7 @@ namespace CurveDrawer.ParameterizedCurves
     class PolynomFunctions : ICurve
     {
         double[] _params;
+        string[] _par_names;
         int _nparams;
         string _name;
         DOMAIN _domain;
@@ -22,14 +23,23 @@ namespace CurveDrawer.ParameterizedCurves
         {
             set
             {
-                if (value.Length == 2)
-                {
                     _params = value;
-                }
             }
             get
             {
                 return _params;
+            }
+        }
+
+        public string[] ParamsNames
+        {
+            set
+            {
+                _par_names = value;
+            }
+            get
+            {
+                return _par_names;
             }
         }
         public double FuncVal(double x)
@@ -63,12 +73,12 @@ namespace CurveDrawer.ParameterizedCurves
         {
             string OutStr;
 
-            OutStr = _name + " " + Type + " ";
+            OutStr = Type + " " + _name + " ";
 
             OutStr += _nparams + " ";
-            for (int i = 0; i < _nparams;i++ )
+            for (int i = 0; i < _nparams; i++ )
             {
-                OutStr += _params[i] + " ";
+                OutStr += _par_names[i] + ":" + _params[i] + " ";
             }
 
             return OutStr;

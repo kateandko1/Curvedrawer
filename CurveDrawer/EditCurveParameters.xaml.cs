@@ -104,7 +104,7 @@ namespace CurveDrawer
                 ParameterValue[i] = param.Parameter_Value;
             }
             string st = TextBox1.Text.ToString();
-            mwnd.GetCurveEditParams(TextBox1.Text.ToString(), retType,
+            mwnd.SetCurveParams(TextBox1.Text.ToString(), retType,
                 ParameterNames, ParameterValue);
             Close();
         }
