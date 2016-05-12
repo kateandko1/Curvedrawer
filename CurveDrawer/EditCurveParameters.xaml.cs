@@ -33,13 +33,14 @@ namespace CurveDrawer
         double[] ParameterValue;
         string CurveName;
         string CurveType;
+        int curveIndex;
         //private ObservableCollection<CurveParameter> params_list = new ObservableCollection<CurveParameter>();
         MainWindow mwnd;
         List<CurveParameter> params_list = new List<CurveParameter>();
 
         public EditCurveParameters(MainWindow wnd,
             string[] parameterNames, double[] parameterValue,
-            string curveName, string curveType
+            string curveName, string curveType, int index
             )
         {
             InitializeComponent();
@@ -47,7 +48,7 @@ namespace CurveDrawer
             DataGridView.CanUserAddRows = false;
             DataGridView.CanUserSortColumns = false;
             retType = Polynom;
-            
+            curveIndex = index; 
             ParameterNames = parameterNames;
             ParameterValue = parameterValue;
             CurveName = curveName;
@@ -68,7 +69,7 @@ namespace CurveDrawer
                 int count = Convert.ToInt32(TextBox2.Text.ToString());
                 for (int i = 0; i <= count; i++)
                 {
-                    params_list.Add(new CurveParameter() { Parameter_Name = "a" + i, Parameter_Value = 0.0 });
+                    params_list.Add(new CurveParameter() { Parameter_Name = ParameterNames[i], Parameter_Value = ParameterValue[i] });
                     //listView.Items.Add(new CurveParameter() { name = "a" + i, val = 0.0});
                 }
                 DataGridView.ItemsSource = params_list;
@@ -105,7 +106,7 @@ namespace CurveDrawer
             }
             string st = TextBox1.Text.ToString();
             mwnd.SetCurveParams(TextBox1.Text.ToString(), retType,
-                ParameterNames, ParameterValue);
+                ParameterNames, ParameterValue, ParameterValue.Count(), curveIndex);
             Close();
         }
     }

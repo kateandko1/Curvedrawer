@@ -43,12 +43,29 @@ namespace CurveDrawer
             curves_names.Add(CurveName);
             curveNameLabel.Content = CurveType + ": " + CurveName;
             DrawCurve(curve);
+            ComboBox.Items.Add(CurveName);
             //curve.
             //System.Windows.Forms.MessageBox.Show("Parameters sucssesfully created!");
         }
-        public void SetCurveParams(string CurveName, string CurveType, string[] ParamsNames, double[] ParameterValues)
+        
+        public void DrawAll()
         {
-            System.Windows.Forms.MessageBox.Show("Parameters sucssesfully edited!");
+            for (int i = 0; i < curves.Count; i++)
+            {
+                DrawCurve(curves[i]);
+            }
+        }
+
+        public void SetCurveParams(string CurveName, string CurveType, string[] ParamsNames, double[] ParameterValues, int ParamsCount, int index)
+        {
+            ICurve curve = curve_factory.CreateCurve(CurveType);
+            curve.Name = CurveName;
+            curve.nparams = ParamsCount;
+            curve.Params = ParameterValues;
+            curve.ParamsNames = ParamsNames;
+            curves[index] = curve;
+            DrawAll();
+            //System.Windows.Forms.MessageBox.Show("Parameters sucssesfully edited!");
         }  
 
         private void  DrawCurve(ICurve curve)
@@ -91,13 +108,32 @@ namespace CurveDrawer
             //curves.Add(curve);
             //DrawCurve(curve);
             //test data
-            string Polinom = "Polynomic";
-            string name = "Curve1";
-            double[] params_val = { 0.0, 1.0 };
-            string[] params_name = { "a0","a1" };
             //end
-            EditCurveParameters csw = new EditCurveParameters(this, params_name,
-                params_val, name, Polinom);
+            ICurve curve = null;
+            string name;
+            try
+            {
+                name = ComboBox.SelectedItem.ToString();
+            }
+            catch
+            {
+                return;
+            }
+            bool f = false;
+            int index = 0;
+            for (int i = 0; i < curves.Count() && !f; i++)
+            {
+                if (curves[i].Name == name)
+                {
+                    curve = curves[i];
+                    f = true;
+                    index = i;
+                }
+            }
+            if (!f)
+                return;
+            EditCurveParameters csw = new EditCurveParameters(this, curve.ParamsNames,
+                curve.Params, name, curve.Type, index);
             csw.Show();
         }
 
