@@ -29,7 +29,7 @@ namespace CurveDrawer
         List<string> curves_names;
         ChartArea chart_area;
         Legend legend;
-        const int npoints = 1000;
+        const int npoints = 50;
         int nseries = 0;
 
         public void CreateCurveFromParams(string CurveName, string CurveType, string[] ParamsNames, double[] ParameterValues, int NumberOfParams)
@@ -50,6 +50,7 @@ namespace CurveDrawer
         
         public void DrawAll()
         {
+            ClearChart();
             for (int i = 0; i < curves.Count; i++)
             {
                 DrawCurve(curves[i]);
@@ -86,6 +87,12 @@ namespace CurveDrawer
             {
                 series.Points.AddXY(i, curve.FuncVal(i));
             }
+            chart.Invalidate();
+        }
+
+        private void ClearChart()
+        {
+            chart.Series.Clear();
             chart.Invalidate();
         }
 
@@ -174,6 +181,7 @@ namespace CurveDrawer
                 {
                     ICurve curve = curve_factory.DeserializeFromString(myStream.ReadLine());
                     curves.Add(curve);
+                    ComboBox.Items.Add(curve.Name);
                     DrawCurve(curve);
                 }
                 myStream.Close();
